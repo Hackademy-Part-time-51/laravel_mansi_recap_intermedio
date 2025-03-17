@@ -23,8 +23,9 @@
                         <td>{{ $article->title }}</td>
                         <td class="d-flex gap-4">
                             <a href="{{ route('articles.show', $article) }}" class="btn btn-info">Info</a>
+
+                            <a href="{{ route('articles.edit', $article) }}" class="btn btn-warning">Modifica</a>
                             @if (Auth::user()->is_admin)
-                                <a href="{{ route('articles.edit', $article) }}" class="btn btn-warning">Modifica</a>
                                 <form action="{{ route('articles.destroy', $article) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

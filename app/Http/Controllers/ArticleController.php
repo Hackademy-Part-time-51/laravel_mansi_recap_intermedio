@@ -13,7 +13,15 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        //$articles = Article::latest()->get();//dal piu recente
+        //$articles = Article::oldest()->get(); //dal piu vecchio
+        //$articles = Article::all();
+        if (auth()->user()->is_admin) {
+            $articles = Article::all();
+        } else {
+            $articles = Article::where('user_id', '=', auth()->user()->id)->get();
+        }
+
         return view('articles.index', compact('articles'));
     }
 
@@ -60,7 +68,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        if (auth()->user()->is_admin) {
+        if (auth()->user()->is_admin || auth()->user()->id == $article->user_id) {
             return view('articles.edit', compact('article'));
         } else {
             abort(401);
