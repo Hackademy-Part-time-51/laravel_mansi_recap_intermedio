@@ -2,7 +2,10 @@
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">Pagina Principale</h1>
-            <p class="col-md-8 fs-4"> Sei utenticato come: {{ Auth::user()->is_admin ? 'Admin' : 'Utente' }}</p>
+            @auth
+                <p class="col-md-8 fs-4"> Sei utenticato come: {{ Auth::user()->is_admin ? 'Admin' : 'Utente' }}</p>
+                <a href="{{ route('articles.index') }}">Lista Articoli</a>
+            @endauth
         </div>
     </div>
     {{-- <section>
