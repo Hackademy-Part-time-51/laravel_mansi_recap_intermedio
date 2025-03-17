@@ -10,16 +10,33 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('homepage') }}">Homepage</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Accedi</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Accedi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registrati</a>
+                    </li>
+                @endguest
 
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Ciao, {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="nav-link" type="submit">Logout</button>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                @endauth
             </ul>
         </div>
     </div>
