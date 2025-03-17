@@ -17,7 +17,7 @@ class ArticleController extends Controller
         //$articles = Article::oldest()->get(); //dal piu vecchio
         //$articles = Article::all();
         if (auth()->user()->is_admin) {
-            $articles = Article::all();
+            $articles = Article::withTrashed()->get();
         } else {
             $articles = Article::where('user_id', '=', auth()->user()->id)->get();
         }
